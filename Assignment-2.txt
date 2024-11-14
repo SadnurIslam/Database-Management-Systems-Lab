@@ -1,0 +1,60 @@
+a)
+
+CREATE TABLE employee(
+    employee_name varchar(50) primary key,
+    street varchar(255),
+    city varchar(50)
+);
+
+insert into employee 
+values('Arif','51 upashahar','Rajshahi'),
+('Sumon','52 east','Moynamoti'),
+('Sagor','Neemgacchi','Sirajgong'),
+('Abdul','Binodpur','Rajshahi'),
+('Himesh','Nazrul Avenue','Dhaka'),
+('Amirul','Chawk Bazar','Sylhet'),
+('Sajib','99 north','Chittagong');
+
+CREATE TABLE works(
+    employee_name varchar(50) primary key,
+    company_name varchar(255),
+    salary int
+);
+
+insert into works 
+values('Sumon','Agrani',12000),
+('Abdul','Sonali',13000),
+('Himesh','Agrani',6000),
+('Amirul','Sonali',20000),
+('Sagor','Sonali',8000),
+('Arif','Janata',13000),
+('Sajib','Janata',9000);
+
+
+b)  SELECT employee_name FROM employee WHERE city = 'rajshahi'
+
+c)  SELECT employee_name,street FROM employee WHERE city = 'rajshahi'
+
+d)  SELECT employee_name FROM works WHERE company_name = 'sonali'
+
+e)  SELECT employee_name,salary FROM works WHERE company_name = 'sonali'
+
+f)  SELECT employee_name FROM works WHERE salary >= 12000
+
+g)  SELECT employee_name,company_name FROM works WHERE salary <12000
+
+h)  SELECT * FROM works WHERE company_name = 'sonali'
+
+i+j+k) same query as h
+
+l) select * from works where company_name = 'sonali' and salary>12000
+
+m)  select * from works where company_name <> 'sonali'  // <> and != both can be use
+
+n) update employee set city = 'Natore' where employee_name='Arif'
+
+o)  update works set salary = salary+(salary*0.1) where company_name = 'Agrani'
+
+p)  DELETE from employee where employee_name = 'sagor'
+
+q)  alter table works add manager varchar(100)
