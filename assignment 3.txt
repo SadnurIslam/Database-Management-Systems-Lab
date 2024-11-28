@@ -1,0 +1,73 @@
+a)  create table accident( 
+ date date,
+ driver varchar(50),
+ d_amount int,
+ PRIMARY key (date,driver) 
+); 
+
+
+create table owns(
+nid varchar(50),
+    license varchar(50),
+    primary key(nid,license),                   			// composite key
+    foreign key (nid) REFERENCES person(nid),    			//foreign key
+    foreign key (license) REFERENCES car(license)
+);
+
+create table log(
+license varchar(50),
+    date date ,
+    driver varchar(50),
+    primary key(date,license,driver),
+    foreign key (license) REFERENCES car(license),   
+    FOREIGN KEY ( date) REFERENCES accident(date)
+);
+
+
+b) select name from person where address="Rajshahi"
+
+c) select model from car where year = 2013
+
+d) select distinct driver from accident where d_amount>=10000 and d_amount<=15000         // distinct
+
+e) select nid from owns WHERE license in
+			(
+    			     select license from car                           //using foreign key referencing table 
+			);
+    			
+
+
+f) select name,address from person where nid IN
+( select nid from owns where license IN			     		 // little complex 
+	 ( select license from car where model="Alto"
+      )
+ );
+
+
+g) select driver from accident where date = '2011-12-20'     		// date format
+
+i )   select name from person where nid IN
+	( select nid from owns where license IN
+ 		(select license from log where driver ="Arif"      		 //complex query
+  		)
+	);
+
+j)  select model from car where license IN
+	( 
+		select license from log where date = '2015-09-19'
+ 	);
+
+
+k)   select count(*) from log where license in(
+	select license from owns where nid IN						// tough
+ 		( select nid from person where name = 'Arif'
+  		)
+    	);
+
+l) select date from log where license IN
+( select license from owns where nid IN						// complex
+ ( select nid from person where name = "Arif"
+  ));
+
+
+m)	update person set address ='Natore' where name = "Arif"
