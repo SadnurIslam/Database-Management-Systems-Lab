@@ -1,0 +1,78 @@
+3)  select e.employee_name,e.street,e.cityity from employee e 
+JOIN works w on e.employee_name = w.employee_name					// join
+where w.company_name='agrani'
+
+
+4)  
+select e.employee_name,e.street,e.city from employee e 
+JOIN works w on e.employee_name = w.employee_name				// composite condition
+where w.company_name='sonali' and salary*12>120000
+
+
+5)
+
+select e.employee_name from employee e 
+JOIN works w on e.employee_name = w.employee_name				// join 3 table
+JOIN company c on w.company_name = c.company_name
+where e.city=c.city
+
+6) hard
+
+
+7) select employee_name from works where company_name<>'Sonali'
+
+
+8)  select employee_name from works where salary>(SELECT max(salary) from works where company_name='Janata')
+
+
+9)	select w1.employee_name from works w1 where salary>(
+		select avg(salary) from works w2 where w1.company_name=w2.company_name			//complex
+	)
+
+
+10.	SELECT company_name
+	FROM employee
+	GROUP BY company_name									//complex
+	ORDER BY COUNT(employee_name) DESC
+	LIMIT 1;
+
+
+11.	SELECT company_name
+	FROM works
+	GROUP BY company_name						// tricky
+	ORDER BY sum(salary) ASC
+	LIMIT 1;
+
+
+12.   SELECT company_name
+	FROM works w1											// hard
+	group by company_name
+	HAVING avg(w1.salary)>(
+    	select avg(salary) from works w2 where w2.company_name="Agrani")
+
+
+14.  update works set salary = salary+salary*0.1 where company_name='Agrani'
+
+15. 	update works w1
+	join manages m on w1.employee_name=m.manager_name					// join and update
+	set salary = salary*1.1 where company_name='Agrani'
+
+
+16.  update works w1
+	join (select distinct manager_name from manages) m on w1.employee_name=m.manager_name
+	set salary = 
+		case 
+			when w1.salary*1.1<=19000 THEN salary*1.1 						// if_else synatx
+			else salary*1.03
+		END
+
+
+
+17.  delete from works where company_name='janata'
+
+18.  CREATE VIEW manager_avg_salary AS
+	SELECT m.manager_name, AVG(e.salary) AS avg_salary
+	FROM manages m
+	JOIN works e ON m.employee_name = e.employee_name				// make view
+	GROUP BY m.manager_name;
+
