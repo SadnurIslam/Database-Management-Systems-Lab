@@ -16,7 +16,10 @@ JOIN works w on e.employee_name = w.employee_name				// join 3 table
 JOIN company c on w.company_name = c.company_name
 where e.city=c.city
 
-6) hard
+6) SELECT * from employee e1
+join manages  m on e1.employee_name=m.employee_name
+join employee e2 on e2.employee_name=m.manager_name
+where e1.city=e2.city
 
 
 7) select employee_name from works where company_name<>'Sonali'

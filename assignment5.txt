@@ -4,4 +4,58 @@
     	select bookid from book where title='dbms')
 
 
-2.	
+2.	select lb.branchname,bc.no_of_copies from library_branch lb 
+	join book_copies bc on lb.branchid=bc.BranchId
+	where bc.bookid IN
+	(select bookid from book where title='dbms')
+
+	if there multiple entries for a book and a branch combined:
+
+	SELECT lb.BranchName, SUM(bc.No_Of_Copies) AS TotalCopies
+	FROM book_copies bc
+	JOIN library_branch lb ON bc.BranchId = lb.BranchId
+	WHERE bc.BookId IN (
+    	SELECT BookId 
+    	FROM book 
+    	WHERE Title = 'DBMS'
+	)
+	GROUP BY lb.BranchName;
+
+
+3.	select name from borrower where cardno not in (
+    	select cardno from book_loan where 1)
+
+4.	SELECT b.Title, br.Name, br.Address
+	FROM book_loan bl
+	JOIN book b ON b.BookId = bl.BookId
+	JOIN borrower br ON br.CardNo = bl.CardNo
+	WHERE bl.BranchId IN (
+    	SELECT BranchId 
+   	 FROM library_branch 
+   	 WHERE BranchName = 'CSE Seminar Library'
+	)
+	AND bl.DueDate = CURRENT_DATE
+
+
+5.	select lb.branchname, COUNT(lb.branchname) as Total_Books_Loaned from library_branch lb 
+	join book_loan bl on bl.BranchId=lb.BranchId
+	group by lb.BranchName
+
+
+6.	SELECT br.Name, br.Address, br.Phone, COUNT(bl.BookId) AS Number_Of_Books
+	FROM borrower br
+	JOIN book_loan bl ON br.CardNo = bl.CardNo
+	GROUP BY br.CardNo, br.Name, br.Address, br.Phone
+	HAVING COUNT(bl.BookId) > 2;
+
+7.	select b.title,sum(bc.no_of_copies) as total_copy from book  b 
+	join book_authors ba on b.BookId=ba.BookId
+	join book_copies bc on bc.BookId=ba.BookId
+	join library_branch lb on bc.BranchId=lb.BranchId
+	where lb.BranchName='RU central library'
+	AND
+	ba.AuthorName='ivan bayross'
+	group by b.Title
+
+
+
