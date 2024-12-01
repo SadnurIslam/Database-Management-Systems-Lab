@@ -1,0 +1,7 @@
+1.	select no_of_copies from book_copies where branchid in (
+    		select branchid from library_branch where branchname='cse seminar library')
+	AND bookid in(
+    	select bookid from book where title='dbms')
+
+
+2.	
